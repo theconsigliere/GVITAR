@@ -18,13 +18,9 @@
         // update the selectedInstrumentType to the family with the checked checkbox
         Object.keys(stepValues).forEach(family => {
             if ($selectedInstrumentType === family) {
-              console.log("Updating instrument for family:", family);
-
-              // the step values that change
-             // $inspect(stepValues[family]);
+              // the step values that change $inspect(stepValues[family]); family
 
               const currentTuningObject = stringTuningObject.family[family as keyof typeof stringTuningObject.family][stepValues[family]];
-
               $selectedStringCount = currentTuningObject.stringCount;
               $selectedTuning = defaultTuning
             }
@@ -46,6 +42,10 @@
           const target = e.target as HTMLInputElement;
           if (target && target.checked) {
             $selectedInstrumentType = family;
+          } else if (target && !target.checked && $selectedInstrumentType === family) {
+            // Prevent unchecking if this is the currently selected type
+            // Re-check the checkbox
+            target.checked = true;
           }
         }} 
       />

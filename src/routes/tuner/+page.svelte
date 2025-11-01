@@ -1,7 +1,8 @@
 <svelte:head>
-	<title>Notes</title>
+	<title>Tuner</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
+
 
 <script lang="ts">
 	import { page } from '$app/stores';

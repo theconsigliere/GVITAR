@@ -10,6 +10,7 @@
             <div>
                 <input type="radio" name="tuning-option" id={"tuning-" + index} value={item.name} bind:group={$selectedTuning} />
                 <h4>{item.label}</h4>
+                <p>{item.type}</p>
                 {#each item.notes as note, noteIndex}
                     <span>{note}</span>
                 {/each}

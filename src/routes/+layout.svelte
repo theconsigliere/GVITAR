@@ -1,13 +1,17 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import Header from './Header.svelte';
 	import TuningControl from '$lib/components/tuningControl/Main.svelte';
 	import GuitarBassSelector from '$lib/components/GuitarBassSelector.svelte';
 	import '../app.css';
 
 	let { children } = $props();
+
+	$inspect(page.url.pathname);
+
 </script>
 
-<div class="app">
+<div class="app layoutGrid page--{ page.url.pathname.replace(/^\//, '').replace(/\//g, '-')}">
 	<Header />
 	<main>
 		<GuitarBassSelector />
@@ -18,40 +22,3 @@
 	<footer>
 	</footer>
 </div>
-
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
-</style>
