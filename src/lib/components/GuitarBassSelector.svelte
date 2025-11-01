@@ -30,43 +30,58 @@
 </script>
 
 <div class="guitar-bass-selector">
-  {#each Object.keys(stringTuningObject.family) as family}
-    <div>
-      <input 
-        type="checkbox" 
-        id={family + "-selector-checkbox"} 
-        name={family + "-selector-checkbox"} 
-        checked={$selectedInstrumentType === family} 
-        value={family} 
-        onchange={(e) => {
-          const target = e.target as HTMLInputElement;
-          if (target && target.checked) {
-            $selectedInstrumentType = family;
-          } else if (target && !target.checked && $selectedInstrumentType === family) {
-            // Prevent unchecking if this is the currently selected type
-            // Re-check the checkbox
-            target.checked = true;
-          }
-        }} 
-      />
-      <label for={family + "-selector"}>Select {family} Type:</label>
-      <input 
-        type="range" 
-        id={family + "-selector"} 
-        name={family + "-selector"} 
-        min="0" 
-        max={stringTuningObject.family[family as keyof typeof stringTuningObject.family].length - 1} 
-        bind:value={stepValues[family]} 
-        step="1" 
-        disabled={$selectedInstrumentType !== family}
-      />
-      {#each stringTuningObject.family[family as keyof typeof stringTuningObject.family] as instrumentObject, index}
-        <div>
-          <p>{instrumentObject.label}</p>
-        </div>
-      {/each}
-    </div>
-  {/each}
+  <div class="guitar-bass-selector__container">
+      {#each Object.keys(stringTuningObject.family) as family}
+      <div>
+        <input 
+          type="checkbox" 
+          id={family + "-selector-checkbox"} 
+          name={family + "-selector-checkbox"} 
+          checked={$selectedInstrumentType === family} 
+          value={family} 
+          onchange={(e) => {
+            const target = e.target as HTMLInputElement;
+            if (target && target.checked) {
+              $selectedInstrumentType = family;
+            } else if (target && !target.checked && $selectedInstrumentType === family) {
+              // Prevent unchecking if this is the currently selected type
+              // Re-check the checkbox
+              target.checked = true;
+            }
+          }} 
+        />
+        <label for={family + "-selector"}>Select {family} Type:</label>
+        <input 
+          type="range" 
+          id={family + "-selector"} 
+          name={family + "-selector"} 
+          min="0" 
+          max={stringTuningObject.family[family as keyof typeof stringTuningObject.family].length - 1} 
+          bind:value={stepValues[family]} 
+          step="1" 
+          disabled={$selectedInstrumentType !== family}
+        />
+        {#each stringTuningObject.family[family as keyof typeof stringTuningObject.family] as instrumentObject, index}
+          <div>
+            <p>{instrumentObject.label}</p>
+          </div>
+        {/each}
+      </div>
+    {/each}
+  </div>
 </div>
 
 
+<style>
+  .guitar-bass-selector {
+    grid-template-columns: subgrid;
+    grid-column: 2 / 6;
+    grid-template-rows: auto;
+
+  }
+
+  .guitar-bass-selector__container {
+    width: 100%;
+  }
+
+</style>

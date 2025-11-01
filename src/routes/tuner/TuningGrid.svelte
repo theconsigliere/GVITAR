@@ -1,19 +1,42 @@
 <script lang="ts">
-    import { setCurrentTuningGrid, selectedTuning } from "$lib/tunerStore";
+    import { setCurrentTuningArray, selectedTuning } from "$lib/tunerStore";
     // todo we need to show a grid of tunings relative to the current selectedStringCount
 </script>
 
 
-<div class="tuning-selector-container">
-        <h3>Current Tuning</h3>
-        {#each $setCurrentTuningGrid as item, index}
-            <div>
+<div class="tuning-grid">
+        {#each $setCurrentTuningArray as item, index}
+            <div class="tuning-option">
                 <input type="radio" name="tuning-option" id={"tuning-" + index} value={item.name} bind:group={$selectedTuning} />
                 <h4>{item.label}</h4>
                 <p>{item.type}</p>
-                {#each item.notes as note, noteIndex}
-                    <span>{note}</span>
-                {/each}
+                <div class="tuning-notes">
+                    {#each item.notes as note, noteIndex}
+                        <span>{note}</span>
+                    {/each}
+                </div>
             </div>
         {/each}
 </div>
+
+<style>
+    .tuning-grid {
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+        grid-row: 4 / -1;
+        display: grid;
+    }
+
+    .tuning-option {
+         grid-template-columns: subgrid;
+         grid-column: span 4;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         padding: 1rem;
+         border: 1px solid var(--color-dark-grey);
+    }
+
+
+</style>

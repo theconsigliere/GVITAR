@@ -1,13 +1,14 @@
 
 <script lang="ts">
-    import { setCurrentTuningArray } from "$lib/tunerStore";
+    import { setCurrentTuningObject } from "$lib/tunerStore";
 </script>
 
 <div class="canvas-container">
-    <p>Canvas Strings Component</p>
-    {#each { length: $setCurrentTuningArray.length } as string,  index}
+
+    <div class="canvas-string-labels">
+    {#each { length: $setCurrentTuningObject.length } as string,  index}
         {@const newIndex = index + 1 }
-            <div>
+            <div class="canvas-string-label">
                 <span>{newIndex}{#if newIndex === 1}st
                     {:else if newIndex === 2}nd
                     {:else if newIndex === 3}rd
@@ -17,7 +18,21 @@
                 <span>String</span>
             </div>
     {/each}
+    </div>
  </div>  
+
+ <style>
+    .canvas-string-labels {
+        display: flex;
+    }
+
+
+    .canvas-string-label {
+        font-size: 0.5rem;
+    }
+
+
+ </style>
 
 
 

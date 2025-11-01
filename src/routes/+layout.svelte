@@ -3,6 +3,7 @@
 	import Header from './Header.svelte';
 	import TuningControl from '$lib/components/tuningControl/Main.svelte';
 	import GuitarBassSelector from '$lib/components/GuitarBassSelector.svelte';
+	import Nav from '$lib/components/Nav.svelte';
 	import '../app.css';
 
 	let { children } = $props();
@@ -11,9 +12,10 @@
 
 </script>
 
-<div class="app layoutGrid page--{ page.url.pathname.replace(/^\//, '').replace(/\//g, '-')}">
+<div class="app page--{ page.url.pathname.replace(/^\//, '').replace(/\//g, '-')}">
 	<Header />
-	<main>
+	<main class="layoutGrid">
+		<Nav />
 		<GuitarBassSelector />
 		<TuningControl />
 		{@render children()}

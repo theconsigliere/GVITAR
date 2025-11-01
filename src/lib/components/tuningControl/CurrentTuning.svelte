@@ -1,16 +1,15 @@
 <script lang="ts">
     import { musicKeys } from "$lib/data/musicKeys";
-    import { setCurrentTuningArray, selectedTuning } from "$lib/tunerStore";
+    import { setCurrentTuningObject, selectedTuning, activeTuningObject } from "$lib/tunerStore";
     import TuningButtonControl from "./TuningButtonControl.svelte";
     import { page } from '$app/state';
 </script>
 
 <div class="current-tuning">
     <div class="current-tuning__container">
-        {#each $setCurrentTuningArray as tuning, index}
-        <div>   
-            <button class="h1">{tuning}</button>
-
+        {#each $setCurrentTuningObject as tuning, index}
+        <div class="tuning-string">   
+            <button class="tuning_key">{tuning}</button>
             <!--  only show TuningButtonControl on /tuner page -->
             {#if page.url.pathname === '/tuner'}
               <TuningButtonControl {tuning} />
@@ -18,7 +17,7 @@
         </div>
         {/each}
     </div>
-    <p>{$selectedTuning}</p>
+    <p>{$activeTuningObject.label}</p>
  </div>  
 
  <style>
@@ -33,5 +32,15 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+    }
+
+    .tuning-string {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tuning_key {
+        font-size: 3rem;
     }
 </style>

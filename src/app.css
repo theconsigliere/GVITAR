@@ -68,14 +68,6 @@ pre {
 	color: var(--color-text);
 }
 
-.text-column {
-	display: flex;
-	max-width: 48rem;
-	flex: 0.6;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0 auto;
-}
 
 input,
 button {
@@ -87,11 +79,6 @@ button:focus:not(:focus-visible) {
 	outline: none;
 }
 
-@media (min-width: 720px) {
-	h1 {
-		font-size: 2.4rem;
-	}
-}
 
 .visually-hidden {
 	border: 0;
@@ -122,3 +109,4 @@ button:focus:not(:focus-visible) {
         grid-template-columns: repeat(24, 1fr);
     }
 }
+

@@ -21,7 +21,7 @@ export const getTotalInstrumentObjects = derived(
     }
 )
 
-// SET THE OBJECT
+// SET THE INSTRUMENT OBJECT
 export const setCurrentStringInstrumentObject = derived(
     [selectedStringCount, selectedInstrumentType],
     ([$selectedStringCount, $selectedInstrumentType]) => {
@@ -47,14 +47,15 @@ export const setCurrentStringInstrumentObject = derived(
 
 setCurrentStringInstrumentObject.subscribe((value) => {})
 
-// GET THE CURRENT TUNING ARRAY
-export const setCurrentTuningArray = derived(
+
+// GET THE CURRENT TUNING OBJECT
+export const setCurrentTuningObject = derived(
     [setCurrentStringInstrumentObject, selectedTuning],
     ([$setCurrentStringInstrumentObject, $selectedTuning]) => {
         const stringInstrumentObjectTunings = $setCurrentStringInstrumentObject.tunings;
-        console.log("setCurrentTuningArray derived triggered with stringInstrumentObject:", stringInstrumentObjectTunings, "selectedTuning:", $selectedTuning);
+        console.log("setCurrentTuningObject derived triggered with stringInstrumentObject:", stringInstrumentObjectTunings, "selectedTuning:", $selectedTuning);
         if (stringInstrumentObjectTunings) {
-            console.log("setCurrentTuningArray found stringInstrumentObject:", stringInstrumentObjectTunings);
+            console.log("setCurrentTuningObject found stringInstrumentObject:", stringInstrumentObjectTunings);
             // const tuningArray = tuningObject.tunings[$selectedTuning as keyof typeof tuningObject.tunings];
             
             // loop through instrumentObjects to find matching string count
@@ -67,7 +68,7 @@ export const setCurrentTuningArray = derived(
             }
 
             if (selectedTuningObject) {
-                console.log("setCurrentTuningArray updated:", selectedTuningObject);
+                console.log("setCurrentTuningObject updated:", selectedTuningObject);
                 return selectedTuningObject;
             }
         }
@@ -75,10 +76,11 @@ export const setCurrentTuningArray = derived(
     }
 )
 
-setCurrentTuningArray.subscribe((value) => {})
 
-// NOW RETURN ACTIVE TUNINGS
-export const setCurrentTuningGrid = derived(
+setCurrentTuningObject.subscribe((value) => {})
+
+// NOW RETURN CURRENT TUNING ARRAY
+export const setCurrentTuningArray = derived(
     setCurrentStringInstrumentObject,
     ($setCurrentStringInstrumentObject) => {
 
@@ -88,7 +90,7 @@ export const setCurrentTuningGrid = derived(
             // const filteredTunings = Object.fromEntries(
             //     Object.entries(allTunings).filter(([key, _]) => key !== $selectedTuning)
             // );
-            // console.log("setCurrentTuningGrid filtered tunings (omitting", $selectedTuning + "):", filteredTunings);
+            // console.log("setCurrentTuningArray filtered tunings (omitting", $selectedTuning + "):", filteredTunings);
             // return filteredTunings;
             return allTunings;
         }
@@ -98,21 +100,16 @@ export const setCurrentTuningGrid = derived(
     }
 )
 
-setCurrentTuningGrid.subscribe((value) => {});
+setCurrentTuningArray.subscribe((value) => {});
 
-//STORE FUNCTIONS
 
-// Function that converts step value to tuning count
-// export function getTuningCountFromStep(stepValue: number): number {
-//     const tuningKeys = Object.keys(stringTuning);
-//     const tuningKey = tuningKeys[stepValue] as unknown as keyof typeof stringTuning;
-    
-//     if (tuningKey && stringTuning[tuningKey]) {
-//         const tuningCount = Number(tuningKey);
-//         console.log("getTuningCountFromStep: stepValue", stepValue, "-> tuningKey", tuningKey, "-> tuningCount", tuningCount);
-//         return tuningCount;
-//     }
-    
-//     console.log("getTuningCountFromStep: fallback for stepValue", stepValue);
-//     return defaultStringCount; // default fallback
-// }
+// NOW RETURN ACTIVE TUNING OBJECT FROM TUNING ARRAY
+export const activeTuningObject = derived(
+    [setCurrentTuningArray, selectedTuning],
+    ([$setCurrentTuningArray, $selectedTuning]) => {
+        const tuningObject = $setCurrentTuningArray.find(obj => obj.name === $selectedTuning);
+        return tuningObject || { name: "", label: "", notes: [] };
+    }
+);
+
+activeTuningObject.subscribe((value) => {});

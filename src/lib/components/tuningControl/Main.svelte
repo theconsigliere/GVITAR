@@ -11,3 +11,12 @@
 
 
 
+<style>
+    .tuning-control {
+    grid-template-columns: subgrid;
+    grid-column: 6 / 12;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+}
+</style>
