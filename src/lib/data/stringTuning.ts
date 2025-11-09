@@ -1,86 +1,3 @@
-// export const stringTuning = {
-//     4: {
-//         family: "Bass",
-//         name: "4 String",
-//         tunings: {
-//             "standard": ["E", "A", "D", "G"],
-//             "drop D": ["D", "A", "D", "G"],
-//             "drop C": ["C", "G", "C", "F"],
-//             "half Step Down": ["D#", "G#", "C#", "F#"],
-//             "whole Step Down": ["D", "G", "C", "F"],
-//             "drop B": ["B", "F#", "B", "E"],
-//             "drop A": ["A", "E", "A", "D"],
-//             "open D": ["D", "A", "D", "F#"],
-//             "open E": ["E", "B", "E", "G#"],
-//             "open G": ["D", "G", "D", "G"],
-//             "open C": ["C", "G", "C", "E"]
-//         },
-//     },  
-//     5: {
-//         family: "Bass",
-//         name: "5 String",
-//         tunings: {
-//             "standard": ["A", "D", "G", "B", "E"],
-//             "drop C": ["G", "C", "F", "Bb", "D"],
-//             "half Step Down": ["Ab", "Db", "Gb", "Bb", "Eb"],
-//             "whole Step Down": ["G", "C", "F", "A", "D"],
-//             "drop B": ["F#", "B", "E", "A", "D"],
-//             "drop A": ["E", "A", "D", "G", "C"],
-//             "open D": ["A", "D", "A", "D", "F#"],
-//             "open E": ["B", "E", "B", "E", "G#"],
-//             "open G": ["D", "G", "D", "G", "B"],
-//             "open C": ["G", "C", "G", "C", "E"]
-//         }
-//     },
-//     6: {
-//         family: "Guitar",
-//         name: "6 String",
-//         tunings: {
-//             "standard": ["E", "A", "D", "G", "B", "E"],
-//             "drop D": ["D", "A", "D", "G", "B", "E"],
-//             "drop C": ["C", "G", "C", "F", "Bb", "D"],
-//             "half Step Down": ["Eb", "Ab", "Db", "Gb", "Bb", "Eb"],
-//             "whole Step Down": ["D", "G", "C", "F", "A", "D"],
-//             "drop B": ["B", "Gb", "B", "E", "A", "D"],
-//             "open D": ["D", "A", "D", "Gb", "A", "D"],
-//             "open E": ["E", "B", "E", "Ab", "B", "E"],
-//             "open G": ["D", "G", "D", "G", "B", "D"],
-//             "open C": ["C", "G", "C", "G", "C", "E"],
-//             "dadgad": ["D", "A", "D", "G", "A", "D"]
-//         }
-//     },
-//     7: {
-//         family: "Guitar",
-//         name: "7 String",
-//         tunings: {
-//             "standard": ["B", "E", "A", "D", "G", "B", "E"],
-//             "drop A": ["A", "E", "A", "D", "G", "B", "E"],
-//             "drop G": ["G", "D", "G", "C", "F", "A", "D"],
-//             "half Step Down": ["Bb", "Eb", "Ab", "Db", "Gb", "Bb", "Eb"],
-//             "whole Step Down": ["A", "D", "G", "C", "F", "A", "D"],
-//             "drop Gb": ["Gb", "B", "Gb", "B", "E", "A", "D"],
-//             "drop F": ["F", "Bb", "F", "Bb", "Eb", "Ab", "Db"],
-//             "drop E": ["E", "B", "E", "A", "D", "G", "C"],
-//             "drop D": ["D", "A", "D", "G", "C", "F", "A"]
-//         }
-//     },
-//     8: {
-//         family: "Guitar",
-//         name: "8 String",
-//         tunings: {
-//             "standard": ["Gb", "B", "E", "A", "D", "G", "B", "E"],
-//             "drop E": ["E", "B", "E", "A", "D", "G", "B", "E"],
-//             "drop D": ["Gb", "B", "E", "A", "D", "G", "B", "D"],
-//             "half Step Down": ["F", "Bb", "Eb", "Ab", "Db", "Gb", "Bb", "Eb"],
-//             "whole Step Down": ["E", "A", "D", "G", "C", "F", "A", "D"],
-//             "drop C": ["C", "G", "C", "F", "Bb", "Eb", "G", "C"],
-//             "drop B": ["B", "Gb", "B", "E", "A", "D", "Gb", "B"],
-//             "drop A": ["A", "E", "A", "D", "G", "C", "E", "A"],
-//             "drop G": ["G", "D", "G", "C", "F", "A", "D", "G"]
-//         }
-//     }
-// }
-
 export const stringTuningObject = {
     family: {
         "Guitar": [
@@ -88,8 +5,16 @@ export const stringTuningObject = {
                 stringCount: 6,
                 family: "Guitar",
                 label: "6 String",
+                octaves: [
+                    { string: 6, min: 1, max: 2},
+                    { string: 5, min: 2, max: 3},
+                    { string: 4, min: 2, max: 3},
+                    { string: 3, min: 3, max: 4},
+                    { string: 2, min: 3, max: 4},
+                    { string: 1, min: 4, max: 5},
+                ],
                 tunings: [
-                    { name: "standard", label: "Standard", notes: ["E", "A", "D", "G", "B", "E"], type: "regular" },
+                    { name: "standard", label: "Standard", notes: ["E", "A", "D", "G", "B", "E"], type: "regular",  },
                     { name: "drop-d", label: "Drop D", notes: ["D", "A", "D", "G", "B", "E"], type: "drop" },
                     { name: "drop-c", label: "Drop C", notes: ["C", "G", "C", "F", "Bb", "D"], type: "drop" },
                     { name: "half-step-down", label: "Half Step Down", notes: ["Eb", "Ab", "Db", "Gb", "Bb", "Eb"], type: "regular" },
@@ -106,6 +31,15 @@ export const stringTuningObject = {
                 stringCount: 7,
                 family: "Guitar",
                 label: "7 String",
+                octaves: [
+                    { string: 7, min: 1, max: 2},
+                    { string: 6, min: 1, max: 2},
+                    { string: 5, min: 2, max: 3},
+                    { string: 4, min: 2, max: 3},
+                    { string: 3, min: 3, max: 4},
+                    { string: 2, min: 3, max: 4},
+                    { string: 1, min: 4, max: 5},
+                ],
                 tunings: [
                     { name: "standard", label: "Standard", notes: ["B", "E", "A", "D", "G", "B", "E"], type: "regular" },
                     { name: "drop-a", label: "Drop A", notes: ["A", "E", "A", "D", "G", "B", "E"], type: "drop" },
@@ -122,6 +56,16 @@ export const stringTuningObject = {
                 stringCount: 8,
                 family: "Guitar",
                 label: "8 String",
+                octaves: [
+                    { string: 8, min: 0, max: 1},
+                    { string: 7, min: 1, max: 2},
+                    { string: 6, min: 1, max: 2},
+                    { string: 5, min: 2, max: 3},
+                    { string: 4, min: 2, max: 3},
+                    { string: 3, min: 3, max: 4},
+                    { string: 2, min: 3, max: 4},
+                    { string: 1, min: 4, max: 5},
+                ],
                 tunings: [
                     { name: "standard", label: "Standard", notes: ["Gb", "B", "E", "A", "D", "G", "B", "E"], type: "regular" },
                     { name: "drop-e", label: "Drop E", notes: ["E", "B", "E", "A", "D", "G", "B", "E"], type: "drop" },
@@ -140,6 +84,12 @@ export const stringTuningObject = {
                     stringCount: 4,
                     family: "Bass",
                     label: "4 String",
+                    octaves:[
+                        { string: 4, min: 0, max: 1},
+                        { string: 3, min: 1, max: 2},
+                        { string: 2, min: 1, max: 2},
+                        { string: 1, min: 2, max: 3},
+                    ],
                     tunings: [
                         { name: "standard", label: "Standard", notes: ["E", "A", "D", "G"], type: "regular" },
                         { name: "drop-d", label: "Drop D", notes: ["D", "A", "D", "G"], type: "drop" },
@@ -158,6 +108,13 @@ export const stringTuningObject = {
                     stringCount: 5,
                     family: "Bass",
                     label: "5 String",
+                    octaves:[
+                        { string: 5, min: 0, max: 1},
+                        { string: 4, min: 0, max: 1},
+                        { string: 3, min: 1, max: 2},
+                        { string: 2, min: 2, max: 3},
+                        { string: 1, min: 2, max: 3}
+                    ],
                     tunings: [
                         { name: "standard", label: "Standard", notes: ["A", "D", "G", "B", "E"], type: "regular" },
                         { name: "drop-c", label: "Drop C", notes: ["G", "C", "F", "Bb", "D"], type: "drop" },
@@ -175,6 +132,14 @@ export const stringTuningObject = {
                     stringCount: 6,
                     family: "Bass",
                     label: "6 String",
+                    octaves:[
+                        { string: 6, min: 0, max: 1},
+                        { string: 5, min: 0, max: 1},
+                        { string: 4, min: 1, max: 2},
+                        { string: 3, min: 1, max: 2},
+                        { string: 2, min: 2, max: 3},
+                        { string: 1, min: 3, max: 4}
+                    ],
                     tunings: [
                         { name: "standard", label: "Standard", notes: ["B", "E", "A", "C", "G", "D"], type: "regular" },
                         { name: "drop-a", label: "Drop A", notes: ["A", "E", "A", "D", "G", "C"], type: "drop" },

@@ -1,5 +1,5 @@
 <script lang="ts">
-    // import { selectedTuning } from "$lib/tunerStore";
+    // import { selectedTuningString} from "$lib/tunerStore";
 
     export let tuning: string;
 

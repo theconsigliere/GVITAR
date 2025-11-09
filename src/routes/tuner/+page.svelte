@@ -6,14 +6,14 @@
 
 <script lang="ts">
 	import { page } from '$app/stores';
-	// import TuningSelector from './TuningSelector.svelte';
-	import TuningGrid from './TuningGrid.svelte';
+	// import TuningFilters from './/components/TuningFilters.svelte';
+	import TuningGrid from './components/TuningGrid.svelte';
 
 </script>
 
 
 <div class="page__container">
-    <!-- <TuningSelector /> -->
+    <!-- <TuningFilters /> -->
 	<TuningGrid />
 </div>
 

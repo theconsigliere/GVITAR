@@ -10,7 +10,6 @@
 <style>
 	header {
 		grid-column: 1 / -1;
-		padding: 1rem 2rem;
 		display: flex;
 		justify-content: center;
 	}
@@ -22,5 +21,6 @@
 		color: var(--color-dark-grey);
 		font-weight: var(--font-weight-mid);
 		margin: 0;
+		padding: 1rem 2rem;
 	}
 </style>

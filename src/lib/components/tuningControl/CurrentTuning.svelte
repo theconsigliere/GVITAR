@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { musicKeys } from "$lib/data/musicKeys";
-    import { setCurrentTuningObject, selectedTuning, activeTuningObject } from "$lib/tunerStore";
+
+    import { selectedTuningArray, activeTuningObject } from "$lib/stores/tunerStore";
     import TuningButtonControl from "./TuningButtonControl.svelte";
     import { page } from '$app/state';
 </script>
 
 <div class="current-tuning">
     <div class="current-tuning__container">
-        {#each $setCurrentTuningObject as tuning, index}
+        {#each $selectedTuningArray as tuning, index}
         <div class="tuning-string">   
             <button class="tuning_key">{tuning}</button>
             <!--  only show TuningButtonControl on /tuner page -->
@@ -25,13 +25,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
     }
 
     .current-tuning__container {
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: space-between;
+        width: 100%;
     }
 
     .tuning-string {
@@ -41,6 +42,9 @@
     }
 
     .tuning_key {
-        font-size: 3rem;
+        font-size: 3dvw;
+        aspect-ratio: 1 / 1;
+        cursor: pointer;
+        width: 4.5dvw;
     }
 </style>

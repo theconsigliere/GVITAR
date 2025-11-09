@@ -1,20 +1,20 @@
 <script lang="ts">
-    import { setCurrentTuningArray, selectedTuning } from "$lib/tunerStore";
+    import { setAllTuningsArrayOfObjects, selectedTuningString } from "$lib/stores/tunerStore";
+    import TuningNoteArray from "./TuningNoteArray.svelte";
+
     // todo we need to show a grid of tunings relative to the current selectedStringCount
 </script>
 
 
 <div class="tuning-grid">
-        {#each $setCurrentTuningArray as item, index}
+        {#each $setAllTuningsArrayOfObjects as item, index}
             <div class="tuning-option">
-                <input type="radio" name="tuning-option" id={"tuning-" + index} value={item.name} bind:group={$selectedTuning} />
-                <h4>{item.label}</h4>
+                <input type="radio" name="tuning-option" id={"tuning-" + index} value={item.name} bind:group={$selectedTuningString} />
                 <p>{item.type}</p>
                 <div class="tuning-notes">
-                    {#each item.notes as note, noteIndex}
-                        <span>{note}</span>
-                    {/each}
+                    <TuningNoteArray {item} />
                 </div>
+                <p>{item.label}</p>
             </div>
         {/each}
 </div>
@@ -36,6 +36,16 @@
          justify-content: center;
          padding: 1rem;
          border: 1px solid var(--color-dark-grey);
+    }
+
+    .tuning-notes {
+        width: 100%;
+    }
+
+    .tuning-note-array {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
     }
 
 

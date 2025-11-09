@@ -1,6 +1,6 @@
 <script lang="ts">
     import { stringTuningObject } from "$lib/data/stringTuning";
-    import { selectedStringCount, selectedInstrumentType, setCurrentStringInstrumentObject, selectedTuning, defaultTuning } from "$lib/tunerStore";
+    import { selectedStringCount, selectedInstrumentType, setCurrentStringInstrumentObject, selectedTuningString, defaultTuning } from "$lib/stores/tunerStore";
 
     // Create independent step values for each family
     let stepValues = $state<Record<string, number>>({});
@@ -22,7 +22,7 @@
 
               const currentTuningObject = stringTuningObject.family[family as keyof typeof stringTuningObject.family][stepValues[family]];
               $selectedStringCount = currentTuningObject.stringCount;
-              $selectedTuning = defaultTuning
+              $selectedTuningString = defaultTuning
             }
         });
 

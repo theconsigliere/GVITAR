@@ -3,14 +3,12 @@ import { stringTuningObject } from "$lib/data/stringTuning";
 
 export const defaultTuning = "standard";
 export const defaultStringCount = 6;
+export const defaultTuningArray = ['E', 'A', 'D', 'G', 'B', 'E'];
 
 export const selectedStringCount = writable(defaultStringCount);
-export const selectedTuning = writable(defaultTuning);
-export const selectedKey = writable("A");
-export const selectedScale = writable("minor");
-export const selectedFretCount = writable(24);
-export const isPlaying = writable(false);
+export const selectedTuningString = writable(defaultTuning);
 export const selectedInstrumentType = writable("Guitar");
+export const selectedTuningArray = writable(defaultTuningArray);
 
 // get number of objects for selected instrument type
 export const getTotalInstrumentObjects = derived(
@@ -22,6 +20,7 @@ export const getTotalInstrumentObjects = derived(
 )
 
 // SET THE INSTRUMENT OBJECT
+// returns 'guitar' or 'bass'
 export const setCurrentStringInstrumentObject = derived(
     [selectedStringCount, selectedInstrumentType],
     ([$selectedStringCount, $selectedInstrumentType]) => {
@@ -36,7 +35,7 @@ export const setCurrentStringInstrumentObject = derived(
             }
         }
 
-        console.log("setCurrentStringInstrumentObject derived triggered with:", $selectedStringCount);
+       // console.log("setCurrentStringInstrumentObject derived triggered with:", $selectedStringCount);
         if (tuningObject) {
             console.log("setCurrentStringInstrumentObject found tuningObject:", tuningObject);
             return tuningObject;
@@ -48,39 +47,37 @@ export const setCurrentStringInstrumentObject = derived(
 setCurrentStringInstrumentObject.subscribe((value) => {})
 
 
-// GET THE CURRENT TUNING OBJECT
-export const setCurrentTuningObject = derived(
-    [setCurrentStringInstrumentObject, selectedTuning],
-    ([$setCurrentStringInstrumentObject, $selectedTuning]) => {
+// SET THE CURRENT TUNING ARRAY
+// returns = ['E', 'A', 'D', 'G', 'B', 'E']
+export const setCurrentTuningArray = derived(
+    [setCurrentStringInstrumentObject, selectedTuningString],
+    ([$setCurrentStringInstrumentObject, $selectedTuningString]) => {
         const stringInstrumentObjectTunings = $setCurrentStringInstrumentObject.tunings;
-        console.log("setCurrentTuningObject derived triggered with stringInstrumentObject:", stringInstrumentObjectTunings, "selectedTuning:", $selectedTuning);
+        // console.log("setCurrentTuningArray derived triggered with stringInstrumentObject:", stringInstrumentObjectTunings, "selectedTuning:", $selectedTuning);
         if (stringInstrumentObjectTunings) {
-            console.log("setCurrentTuningObject found stringInstrumentObject:", stringInstrumentObjectTunings);
-            // const tuningArray = tuningObject.tunings[$selectedTuning as keyof typeof tuningObject.tunings];
-            
             // loop through instrumentObjects to find matching string count
-            let selectedTuningObject = null;
+           
             for (const obj of stringInstrumentObjectTunings) {
-                if (obj.name === $selectedTuning) {
-                    selectedTuningObject = obj.notes;
+                if (obj.name === $selectedTuningString) {
+                    selectedTuningArray.set(obj.notes);
                     break;
                 }
             }
 
-            if (selectedTuningObject) {
-                console.log("setCurrentTuningObject updated:", selectedTuningObject);
-                return selectedTuningObject;
+            if (selectedTuningArray) {
+                console.log("setCurrentTuningArray updated:", selectedTuningArray);
+                return selectedTuningArray;
             }
         }
         return [];
     }
 )
 
+setCurrentTuningArray.subscribe((value) => {})
 
-setCurrentTuningObject.subscribe((value) => {})
-
-// NOW RETURN CURRENT TUNING ARRAY
-export const setCurrentTuningArray = derived(
+// NOW RETURN CURRENT TUNING ARRAY OF OBJECTS
+// returns = [  {name: 'standard', label: 'Standard', notes: Array(8), type: 'regular'}, ...]
+export const setAllTuningsArrayOfObjects = derived(
     setCurrentStringInstrumentObject,
     ($setCurrentStringInstrumentObject) => {
 
@@ -90,8 +87,9 @@ export const setCurrentTuningArray = derived(
             // const filteredTunings = Object.fromEntries(
             //     Object.entries(allTunings).filter(([key, _]) => key !== $selectedTuning)
             // );
-            // console.log("setCurrentTuningArray filtered tunings (omitting", $selectedTuning + "):", filteredTunings);
+            // console.log("setAllTuningsArrayOfObjects filtered tunings (omitting", $selectedTuningString+ "):", filteredTunings);
             // return filteredTunings;
+            console.log("setAllTuningsArrayOfObjects all tunings:", allTunings);  
             return allTunings;
         }
         // Default fallback - also omit selected tuning
@@ -100,14 +98,16 @@ export const setCurrentTuningArray = derived(
     }
 )
 
-setCurrentTuningArray.subscribe((value) => {});
+setAllTuningsArrayOfObjects.subscribe((value) => {});
 
 
 // NOW RETURN ACTIVE TUNING OBJECT FROM TUNING ARRAY
+// returns active object likes: { stringCount: 6, type: 'regular', tunings: { standard: [...], dropD: [...] }, name: 'guitar' }
 export const activeTuningObject = derived(
-    [setCurrentTuningArray, selectedTuning],
-    ([$setCurrentTuningArray, $selectedTuning]) => {
-        const tuningObject = $setCurrentTuningArray.find(obj => obj.name === $selectedTuning);
+    [setAllTuningsArrayOfObjects, selectedTuningString],
+    ([$setAllTuningsArrayOfObjects, $selectedTuningString]) => {
+        const tuningObject = $setAllTuningsArrayOfObjects.find(obj => obj.name === $selectedTuningString);
+        console.log("activeTuningObject found tuningObject:", tuningObject);
         return tuningObject || { name: "", label: "", notes: [] };
     }
 );

@@ -18,5 +18,9 @@
     grid-row: 1 / 4;
     display: flex;
     flex-direction: column;
+
+    @media (min-width: 1200px ) {
+        grid-column: 8 / -8;
+    }
 }
 </style>

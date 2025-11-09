@@ -20,6 +20,10 @@
     --screen-4xl: 1920px;
 }
 
+.app {
+	overflow: hidden;
+}
+
 
 body {
 	min-height: 100vh;
